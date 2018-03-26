@@ -11,6 +11,8 @@ public class Card {
         public String url;
         public int comments;
         private JsonArray labels;
+        private JsonArray idChecklists;
+
 
 //        public String idLabels;
 
@@ -25,6 +27,7 @@ public class Card {
                     ", url='" + url + '\'' +
                     ", comments='" + comments + '\'' +
                     ", labels='" + labels + '\'' +
+                    ", idChecklists='" + idChecklists + '\'' +
                     '}';
         }
 
@@ -89,6 +92,13 @@ public class Card {
 
         public void setLabels(JsonArray labels) {
                 this.labels = labels;
+        }
+        public JsonArray getidChecklists() {
+                return idChecklists;
+        }
+
+        public void setidChecklists(JsonArray idChecklists) {
+                this.idChecklists = idChecklists;
         }
 
 }

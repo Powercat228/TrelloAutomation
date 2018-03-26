@@ -123,6 +123,15 @@ public class ApiPattern {
                 + "\"idLabels\":\"" + idLabels + "\""
                 + "}";
     }
+
+    String jsonCreateAdCheckListCard (String cardId, String nameCheckList){
+        return "{\"key\":\"2bccaa41b821ec645f738cc2a0b8222f\","
+                + "\"token\":\"1ee949ce33b2c6a8b1d7fb2d6aef536c1597c2cb8ba60044168f227174e3f820\","
+                + "\"carId\":\"" + cardId + "\","
+                + "\"nameCheckList\":\"" + nameCheckList + "\""
+                + "}";
+    }
+
     String jsonPostCardComment(String cardId, String text){
         return "{\"key\":\"2bccaa41b821ec645f738cc2a0b8222f\","
                 + "\"token\":\"1ee949ce33b2c6a8b1d7fb2d6aef536c1597c2cb8ba60044168f227174e3f820\","
@@ -177,16 +186,24 @@ public class ApiPattern {
         Gson gson = new Gson();
         String url = "https://api.trello.com/1/cards";
         String json = createJson(listId);
-        // System.out.println(json);
         String response = post(url, json);
         card = gson.fromJson(response, Card.class);
         return card;
     }
 
-    public Card postCreateCardNeg (String listId, String name, Card card) throws IOException {
+    public Card postCreateCard (String listId, String name, Card card) throws IOException {
         Gson gson = new Gson();
         String url = "https://api.trello.com/1/cards";
         String json = createJson(listId, name);
+        String response = post(url, json);
+        card = gson.fromJson(response, Card.class);
+        return card;
+    }
+
+    public Card postAdCheckListCard (String cardId, String nameCheckList, Card card) throws IOException {
+        Gson gson = new Gson();
+        String url = "https://api.trello.com/1/cards/" + cardId + "/checklists";
+        String json = jsonCreateAdCheckListCard(cardId, nameCheckList);
         String response = post(url, json);
         card = gson.fromJson(response, Card.class);
         return card;
@@ -236,11 +253,6 @@ public class ApiPattern {
         card = gson.fromJson(response, Card.class);
         return card;
     }
-
-
-
-
-
 
 
     public Card putUpdateCardIdLabels(String cardId, String idLabels, Card card) throws IOException {
